@@ -1,0 +1,7 @@
+<mat-toolbar color="primary">
+  <h3 [style.color]="'white'">Hotel App</h3>
+  <span class="right-placer"></span>
+  <span [hidden]="!loggedIn"><a mat-button>View Rooms</a></span>
+  <span [hidden]="!loggedIn"><a mat-button>Add Room</a></span>
+  <span [hidden]="!loggedIn"><a mat-button>Logout</a></span>
+</mat-toolbar>
