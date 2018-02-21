@@ -1,3 +1,12 @@
-<p>
-  add-guest works!
-</p>
+<div class="container">
+  <h3 style="margin-top: 30px;">Add new Guest Information <span style="font-size:small">* is a required field</span></h3>
+  <form (ngSubmit)="onSubmit()">
+    <mat-grid-list cols="4" rowHeight="60px">
+      <mat-grid-tile [colspan]="4" [rowspan]="1">
+        <mat-input-container>
+          <input matInput id="name" type="text" required [(ngModel)]="newGuest.name" name="name" placeholder="Name">
+        </mat-input-container>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

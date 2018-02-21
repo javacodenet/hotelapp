@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Guest} from '../../models/guest';
 
 @Component({
   selector: 'app-add-guest',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-guest.component.css']
 })
 export class AddGuestComponent implements OnInit {
+  newGuest: Guest = new Guest();
 
   constructor() { }
 
