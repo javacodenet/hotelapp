@@ -11,13 +11,19 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {LoginService} from './components/login/login.service';
 import {FormsModule} from '@angular/forms';
 import {EventManagerService} from './shared/event-manager.service';
+import {AddGuestComponent} from './components/add-guest/add-guest.component';
+import {EditGuestComponent} from './components/edit-guest/edit-guest.component';
+import {GuestListComponent} from './components/guest-list/guest-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    LoginComponent
+    LoginComponent,
+    AddGuestComponent,
+    EditGuestComponent,
+    GuestListComponent
   ],
   imports: [
     BrowserModule,
