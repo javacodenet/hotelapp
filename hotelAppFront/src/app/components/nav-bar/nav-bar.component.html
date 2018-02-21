@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
-  <h3 [style.color]="'white'">Hotel App</h3>
+  <h3 [style.color]="'white'">Test</h3>
   <span class="right-placer"></span>
-  <span [hidden]="!loggedIn"><a mat-button>View Rooms</a></span>
-  <span [hidden]="!loggedIn"><a mat-button>Add Room</a></span>
-  <span [hidden]="!loggedIn"><a mat-button>Logout</a></span>
+  <span *ngIf="loggedIn"><a mat-button>View Rooms</a></span>
+  <span *ngIf="loggedIn"><a mat-button>Add Room</a></span>
+  <span *ngIf="loggedIn"><a mat-button (click)="logout()">Logout</a></span>
 </mat-toolbar>

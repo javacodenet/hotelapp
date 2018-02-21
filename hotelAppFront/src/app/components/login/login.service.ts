@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {AppConstants} from '../../constants/app.constants';
 
 @Injectable()
 export class LoginService {
@@ -8,7 +9,8 @@ export class LoginService {
   }
 
   sendCredential(username: string, password: string) {
-    let url = "http://localhost:8080/token";
+    console.log('http url: ' + AppConstants.HTTP_URL);
+    let url = AppConstants.HTTP_URL + "token";
     let encodedCredentials = btoa(username + ":" + password);
     let basicHeader = "Basic " + encodedCredentials;
     let headers = new HttpHeaders({
@@ -20,23 +22,23 @@ export class LoginService {
   }
 
   checkSession() {
-    let url = "http://localhost:8080/checkSession";
+    let url = AppConstants.HTTP_URL + "checkSession";
 
     let headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
 
-    return this.http.get(url, {headers: headers});
+    return this.http.get(url, {headers: headers, responseType:'text'});
   }
 
   logout() {
-    let url = "http://localhost:8080/user/logout";
+    let url = AppConstants.HTTP_URL + "user/logout";
 
     let headers = new HttpHeaders({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
 
-    return this.http.post(url, '', {headers: headers});
+    return this.http.post(url, '', {headers: headers, responseType:'text'});
   }
 
 }

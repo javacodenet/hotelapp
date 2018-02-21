@@ -7,6 +7,10 @@ import {SharedMaterialModuleModule} from "./shared-material-module/shared-materi
 import {NavBarComponent} from './components/nav-bar/nav-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
+import {AppRoutingModule} from './app-routing/app-routing.module';
+import {LoginService} from './components/login/login.service';
+import {FormsModule} from '@angular/forms';
+import {EventManagerService} from './shared/event-manager.service';
 
 
 @NgModule({
@@ -17,11 +21,13 @@ import {HttpClientModule} from "@angular/common/http";
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     SharedMaterialModuleModule,
     NoopAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [LoginService, EventManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
