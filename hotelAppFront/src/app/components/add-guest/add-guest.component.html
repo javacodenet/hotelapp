@@ -1,12 +1,64 @@
 <div class="container">
-  <h3 style="margin-top: 30px;">Add new Guest Information <span style="font-size:small">* is a required field</span></h3>
-  <form (ngSubmit)="onSubmit()">
-    <mat-grid-list cols="4" rowHeight="60px">
+  <h3 style="margin-top: 30px;">Add new Guest Information <span style="font-size:small">* is a required field</span>
+  </h3>
+  <form (ngSubmit)="addGuest()">
+    <mat-grid-list cols="4" rowHeight="80px">
       <mat-grid-tile [colspan]="4" [rowspan]="1">
         <mat-input-container>
           <input matInput id="name" type="text" required [(ngModel)]="newGuest.name" name="name" placeholder="Name">
         </mat-input-container>
       </mat-grid-tile>
     </mat-grid-list>
+
+    <mat-grid-list cols="4" rowHeight="80px">
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <mat-input-container>
+          <input matInput id="amount" type="text" required [(ngModel)]="newGuest.amount" name="amount"
+                 placeholder="Amount">
+        </mat-input-container>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <mat-input-container>
+          <input matInput id="roomNumber" type="text" required [(ngModel)]="newGuest.roomNumber" name="roomNumber"
+                 placeholder="Room Number">
+        </mat-input-container>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-input-container>
+        <textarea matInput id="description" [(ngModel)]="newGuest.address" name="description" placeholder="Description"
+                  required></textarea>
+    </mat-input-container>
+    <mat-input-container>
+        <textarea matInput id="otherDetails" [(ngModel)]="newGuest.otherDetails" name="otherDetailsAny"
+                  placeholder="Other Details If Any"></textarea>
+    </mat-input-container>
+
+
+    <div *ngIf="currentFileUpload" class="progress">
+      <div class="progress-bar progress-bar-info progress-bar-striped"
+           role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+           aria-valuemin="0" aria-valuemax="100"
+           [ngStyle]="{width:progress.percentage+'%'}">
+        {{progress.percentage}}%</div>
+    </div>
+
+    <label class="btn btn-default">
+      Image &nbsp;<input type="file" id="guestImage" name="guestImage" (change)="selectFile($event)">
+    </label>
+
+    <button class="btn btn-success" [disabled]="!selectedFiles"
+            (click)="upload()">Upload</button>
+
+    <mat-grid-list cols="20" rowHeight="60px">
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <button class="mat-primary" mat-raised-button type="submit">Add Guest</button>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <a class="mat-warn" mat-raised-button routerLink="/">Cancel</a>
+      </mat-grid-tile>
+    </mat-grid-list>
+
   </form>
 </div>

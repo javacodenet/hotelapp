@@ -14,6 +14,8 @@ import {EventManagerService} from './shared/event-manager.service';
 import {AddGuestComponent} from './components/add-guest/add-guest.component';
 import {EditGuestComponent} from './components/edit-guest/edit-guest.component';
 import {GuestListComponent} from './components/guest-list/guest-list.component';
+import {UploadFileService} from './shared/upload-file/upload-file.service';
+import {AddGuestService} from './components/add-guest/add-guest.service';
 
 
 @NgModule({
@@ -33,7 +35,7 @@ import {GuestListComponent} from './components/guest-list/guest-list.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [LoginService, EventManagerService],
+  providers: [LoginService, EventManagerService, UploadFileService, AddGuestService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

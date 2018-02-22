@@ -4,12 +4,14 @@ import com.hoteling.hotelApp.config.SecurityUtility;
 import com.hoteling.hotelApp.domain.User;
 import com.hoteling.hotelApp.domain.security.Role;
 import com.hoteling.hotelApp.domain.security.UserRole;
+import com.hoteling.hotelApp.service.FileUploadService;
 import com.hoteling.hotelApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +20,9 @@ public class HotelAppApplication implements CommandLineRunner{
 
 	@Autowired
 	private UserService userService;
+
+	@Resource
+	FileUploadService fileUploadService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HotelAppApplication.class, args);
@@ -53,5 +58,9 @@ public class HotelAppApplication implements CommandLineRunner{
 		userRoles.add(new UserRole(user2, role2));
 
 		userService.createUser(user2, userRoles);
+
+		// File Uploads
+		fileUploadService.deleteAll();
+		fileUploadService.init();
 	}
 }

@@ -4,9 +4,9 @@ export class Guest {
   public address: string;
   public idProof: string;
   public checkInTime: string;
-  public checkoutTutTime: string;
-  public Amount: string;
-  public roomNumber: string;
+  public checkoutTime: string;
+  public amount: number;
+  public roomNumber: number;
   public active: boolean;
-  public otherDescription: string;
+  public otherDetails: string;
 }
