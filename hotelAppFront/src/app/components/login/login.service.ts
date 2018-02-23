@@ -24,21 +24,31 @@ export class LoginService {
   checkSession() {
     let url = AppConstants.HTTP_URL + "checkSession";
 
+    let authToken = '';
+    if (localStorage.getItem('xAuthToken')) {
+      authToken = localStorage.getItem('xAuthToken');
+    }
+
     let headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
+      'x-auth-token': authToken
     });
 
-    return this.http.get(url, {headers: headers, responseType:'text'});
+    return this.http.get(url, {headers: headers, responseType: 'text'});
   }
 
   logout() {
     let url = AppConstants.HTTP_URL + "user/logout";
 
+    let authToken = '';
+    if (localStorage.getItem('xAuthToken')) {
+      authToken = localStorage.getItem('xAuthToken');
+    }
+
     let headers = new HttpHeaders({
-      'x-auth-token': localStorage.getItem('xAuthToken')
+      'x-auth-token': authToken
     });
 
-    return this.http.post(url, '', {headers: headers, responseType:'text'});
+    return this.http.post(url, '', {headers: headers, responseType: 'text'});
   }
 
 }

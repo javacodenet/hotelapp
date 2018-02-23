@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   credential = {username: '', password: ''};
   loggedIn = false;
+  loading: boolean;
 
   constructor(private loginService: LoginService,
               private eventManager: EventManagerService) {
@@ -34,14 +35,17 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.loginService.checkSession().subscribe(
-      () => {
-        console.log('success1');
+      (res) => {
+        this.loading = false;
         this.loggedIn = true;
-        console.log('success');
+        console.log('success' + res);
       },
-      () => {
+      (res) => {
+        console.log('failure: ' + res);
         this.loggedIn = false;
+        this.loading = false;
       }
     );
   }

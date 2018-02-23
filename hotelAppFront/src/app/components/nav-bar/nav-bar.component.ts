@@ -14,6 +14,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   loggedIn = false;
   subscription: Subscription;
+  loading: boolean;
 
   constructor(private loginService:LoginService,
               private router:Router,
@@ -29,10 +30,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.router.navigate(['/']);
+    this.router.navigate(['login']);
   }
 
   ngOnInit() {
+    this.loading = true;
     this.subscription = this.eventManager.subscribe(AppConstants.RELOAD_NAV_BAR, () => this.checkSession());
     this.checkSession();
   }
@@ -41,9 +43,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.loginService.checkSession().subscribe(
       res => {
         this.loggedIn = true;
+        this.loading = false;
       },
       error => {
         this.loggedIn = false;
+        this.loading = false;
       }
     );
   }

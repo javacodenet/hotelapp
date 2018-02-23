@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api")
 public class LoginResource {
     @Autowired
     private UserService userService;
@@ -33,13 +34,13 @@ public class LoginResource {
     }
 
     @RequestMapping("/checkSession")
-    public ResponseEntity checkSession() {
-        return new ResponseEntity("Session Active!", HttpStatus.OK);
+    public ResponseEntity<String> checkSession() {
+        return new ResponseEntity<>("Session Active!", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/logout", method = RequestMethod.POST)
-    public ResponseEntity logout() {
+    public ResponseEntity<String> logout() {
         SecurityContextHolder.clearContext();
-        return new ResponseEntity("Logout Successfully!", HttpStatus.OK);
+        return new ResponseEntity<>("Logout Successfully!", HttpStatus.OK);
     }
 }

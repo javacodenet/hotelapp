@@ -40,10 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
-                .antMatchers(PUBLIC_MATCHERS).permitAll()
+                .antMatchers("/api/**").authenticated()
                 // .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() To allow options but it is not working need to
                 // filter
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
     }
 
     @Autowired

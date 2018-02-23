@@ -9,7 +9,7 @@ import {GuestListComponent} from '../components/guest-list/guest-list.component'
 const routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
