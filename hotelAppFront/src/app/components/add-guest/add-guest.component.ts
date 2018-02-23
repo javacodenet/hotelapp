@@ -14,12 +14,14 @@ export class AddGuestComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: { percentage: number } = {percentage: 0};
+  guestAdded = false;
 
   constructor(private uploadService: UploadFileService,
               private addGuestService: AddGuestService) {
   }
 
   ngOnInit() {
+    this.guestAdded = false;
   }
 
   addGuest() {
@@ -27,6 +29,7 @@ export class AddGuestComponent implements OnInit {
       res => {
         this.upload(res);
         this.newGuest = new Guest();
+        this.guestAdded = true;
       },
       error => {
         console.log(error);
@@ -38,15 +41,17 @@ export class AddGuestComponent implements OnInit {
   }
 
   upload(id: string) {
-    this.progress.percentage = 0;
+    if (this.selectedFiles && this.selectedFiles.item) {
+      this.progress.percentage = 0;
 
-    this.currentFileUpload = this.selectedFiles.item(0);
-    this.uploadService.uploadFile(this.currentFileUpload, id).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    })
+      this.currentFileUpload = this.selectedFiles.item(0);
+      this.uploadService.uploadFile(this.currentFileUpload, id).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+      })
+    }
   }
 }

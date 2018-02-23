@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!guestAdded">
   <h3 style="margin-top: 30px;">Add new Guest Information <span style="font-size:small">* is a required field</span>
   </h3>
   <form (ngSubmit)="addGuest()">
@@ -48,8 +48,8 @@
       Image &nbsp;<input type="file" id="guestImage" name="guestImage" (change)="selectFile($event)">
     </label>
 
-    <button class="btn btn-success" [disabled]="!selectedFiles"
-            (click)="upload()">Upload</button>
+   <!-- <button class="btn btn-success" [disabled]="!selectedFiles"
+            (click)="upload(newGuest.id)">Upload</button>-->
 
     <mat-grid-list cols="20" rowHeight="60px">
       <mat-grid-tile [colspan]="2" [rowspan]="1">
@@ -61,4 +61,8 @@
     </mat-grid-list>
 
   </form>
+</div>
+
+<div class="container" *ngIf="guestAdded">
+  <h2>Guest Added Successfully</h2>
 </div>
