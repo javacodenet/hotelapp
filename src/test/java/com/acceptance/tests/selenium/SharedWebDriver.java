@@ -1,6 +1,7 @@
 package com.acceptance.tests.selenium;
 
 import com.paulhammant.ngwebdriver.NgWebDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -48,8 +49,7 @@ public class SharedWebDriver {
         switch (getBrowser()) {
 
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +
-                        "/browsers/chrome/chromedriver.exe");
+                WebDriverManager.chromedriver().setup();
 
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("disable-extensions");
@@ -67,21 +67,7 @@ public class SharedWebDriver {
                 driver = new ChromeDriver(caps);
                 break;
             case FIREFOX:
-
-                final String firefoxPath = System.getProperty("user.dir")
-                        + File.separator + "browsers" + File.separator
-                        + "firefox" + File.separator + "firefox.exe";
-
-                final String firefoxProfilePath = System.getProperty("user.dir")
-                        + File.separator + "browsers" + File.separator
-                        + "firefox" + File.separator + "profile";
-
-                final FirefoxProfile profile = new FirefoxProfile(new File(firefoxProfilePath));
-                profile.setPreference("network.proxy.type", 0);
-                profile.setPreference("browser.cache.disk.enable", false);
-                profile.setPreference("browser.cache.memory.enable", false);
-                profile.setPreference("browser.cache.offline.enable", false);
-                driver = new FirefoxDriver(new FirefoxBinary(new File(firefoxPath)), profile);
+                WebDriverManager.firefoxdriver().setup();
 
                 break;
             case HTMLUNIT:

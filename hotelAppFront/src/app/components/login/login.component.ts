@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from "./login.service";
 import {EventManagerService} from '../../shared/event-manager.service';
-import {AppConstants} from '../../constants/app.constants';
+import { RELOAD_NAV_BAR } from '../../shared/constants/app.constants';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +19,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loginService.sendCredential(this.credential.username, this.credential.password).subscribe(
-      (res: any) => {
-        console.log(res);
-        localStorage.setItem("xAuthToken", res.token);
+    this.loginService.sendCredential({username: this.credential.username, password: this.credential.password})
+      .then(
+      () => {
         this.loggedIn = true;
         // location.reload();
-        this.eventManager.broadcast({name: AppConstants.RELOAD_NAV_BAR,
+        this.eventManager.broadcast({name: RELOAD_NAV_BAR,
           content: 'Reload navigation bar'});
       },
       error => {

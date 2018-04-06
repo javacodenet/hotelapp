@@ -3,7 +3,7 @@ import {LoginService} from '../login/login.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
 import {EventManagerService} from '../../shared/event-manager.service';
-import {AppConstants} from '../../constants/app.constants';
+import { RELOAD_NAV_BAR } from '../../shared/constants/app.constants';
 
 @Component({
   selector: 'app-nav-bar',
@@ -21,21 +21,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
               private eventManager: EventManagerService) { }
 
   logout() {
-    this.loginService.logout().subscribe(
-      res => {
-        location.reload();
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.loginService.logout();
 
     this.router.navigate(['login']);
   }
 
   ngOnInit() {
     this.loading = true;
-    this.subscription = this.eventManager.subscribe(AppConstants.RELOAD_NAV_BAR, () => this.checkSession());
+    this.subscription = this.eventManager.subscribe(RELOAD_NAV_BAR, () => this.checkSession());
     this.checkSession();
   }
 

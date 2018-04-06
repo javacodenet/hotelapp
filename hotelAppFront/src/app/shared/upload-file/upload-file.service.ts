@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
-import {AppConstants} from '../../constants/app.constants';
+import { HTTP_URL } from '../constants/app.constants';
 
 @Injectable()
 export class UploadFileService {
@@ -17,7 +17,7 @@ export class UploadFileService {
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
 
-    const req = new HttpRequest('POST', AppConstants.HTTP_URL + 'post' + '/' + id, formData, {
+    const req = new HttpRequest('POST', HTTP_URL + 'post' + '/' + id, formData, {
       headers: headers,
       reportProgress: true,
       responseType: 'text'

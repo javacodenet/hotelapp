@@ -2,8 +2,6 @@ package com.hoteling.hotelApp;
 
 import com.hoteling.hotelApp.config.SecurityUtility;
 import com.hoteling.hotelApp.domain.User;
-import com.hoteling.hotelApp.domain.security.Role;
-import com.hoteling.hotelApp.domain.security.UserRole;
 import com.hoteling.hotelApp.service.FileUploadService;
 import com.hoteling.hotelApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +34,8 @@ public class HotelAppApplication implements CommandLineRunner{
 		user1.setUsername("j");
 		user1.setPassword(SecurityUtility.passwordEncoder().encode("p"));
 		user1.setEmail("JAdams@gmail.com");
-		Set<UserRole> userRoles = new HashSet<>();
-		Role role1 = new Role();
-		role1.setRoleId(1);
-		role1.setName("ROLE_USER");
-		userRoles.add(new UserRole(user1, role1));
 
-		userService.createUser(user1, userRoles);
-
-		userRoles.clear();
+		userService.createUser(user1);
 
 		User user2 = new User();
 		user2.setFirstName("Admin");
@@ -52,12 +43,8 @@ public class HotelAppApplication implements CommandLineRunner{
 		user2.setUsername("admin");
 		user2.setPassword(SecurityUtility.passwordEncoder().encode("p"));
 		user2.setEmail("Admin@gmail.com");
-		Role role2 = new Role();
-		role2.setRoleId(0);
-		role2.setName("ROLE_ADMIN");
-		userRoles.add(new UserRole(user2, role2));
 
-		userService.createUser(user2, userRoles);
+		userService.createUser(user2);
 
 		// File Uploads
 		fileUploadService.deleteAll();

@@ -16,6 +16,8 @@ import {EditGuestComponent} from './components/edit-guest/edit-guest.component';
 import {GuestListComponent} from './components/guest-list/guest-list.component';
 import {UploadFileService} from './shared/upload-file/upload-file.service';
 import {AddGuestService} from './components/add-guest/add-guest.service';
+import { AuthServerProvider } from './shared/auth/auth-jwt.service';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 
 @NgModule({
@@ -35,7 +37,7 @@ import {AddGuestService} from './components/add-guest/add-guest.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [LoginService, EventManagerService, UploadFileService, AddGuestService],
+  providers: [LoginService, EventManagerService, UploadFileService, AddGuestService, AuthServerProvider, LocalStorageService, SessionStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
