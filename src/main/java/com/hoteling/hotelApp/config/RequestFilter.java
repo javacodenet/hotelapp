@@ -1,3 +1,4 @@
+/*
 package com.hoteling.hotelApp.config;
 
 import javax.servlet.*;
@@ -41,3 +42,4 @@ public class RequestFilter implements Filter {
 	
 	public void destroy() {}
 }
+*/

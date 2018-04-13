@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         console.log('success' + res);
       },
       (res) => {
-        console.log('failure: ' + res);
+        console.log('failure: ' + res.message);
         this.loggedIn = false;
         this.loading = false;
       }
