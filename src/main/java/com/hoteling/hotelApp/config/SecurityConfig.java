@@ -1,5 +1,7 @@
 package com.hoteling.hotelApp.config;
 
+import com.hoteling.hotelApp.security.JWTConfigurer;
+import com.hoteling.hotelApp.security.TokenProvider;
 import com.hoteling.hotelApp.service.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,17 +13,29 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private Environment env;
 
-    @Autowired
     private UserSecurityService userSecurityService;
+
+    private final CorsFilter corsFilter;
+
+    private final TokenProvider tokenProvider;
+
+    public SecurityConfig(Environment env, UserSecurityService userSecurityService, CorsFilter corsFilter,
+                          TokenProvider tokenProvider) {
+        this.env = env;
+        this.userSecurityService = userSecurityService;
+        this.corsFilter = corsFilter;
+        this.tokenProvider = tokenProvider;
+    }
 
     private BCryptPasswordEncoder passwordEncoder() {
         return SecurityUtility.passwordEncoder();
@@ -46,14 +60,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
+        http
+            .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class).csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
                 .antMatchers("/api/authenticate")
                 .permitAll()
                 .antMatchers("/api/**")
                 .authenticated()
                 // .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() To allow options but it is not working need to
                 // filter
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+                .and()
+                .apply(securityConfigurerAdapter());;
+    }
+
+    private JWTConfigurer securityConfigurerAdapter() {
+        return new JWTConfigurer(tokenProvider);
     }
 
     @Autowired
